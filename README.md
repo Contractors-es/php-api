@@ -4,6 +4,8 @@ PHP client library for Contractors.es API.
 
 API endpoint documentation is available at: https://api.contractors.es
 
+Usage samples: https://github.com/Contractors-es/PHP-API-Samples
+
 ## Requirements
 
 - PHP 8.1+
