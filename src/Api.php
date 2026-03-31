@@ -513,19 +513,32 @@ class Api
         return $this->__all("get", $endpoint, ...$args);
     }
 
+    private function buildSearchEndpoint($endpoint)
+    {
+        $parts = explode('?', (string)$endpoint, 2);
+        $path = rtrim($parts[0], '/');
+        $query = $parts[1] ?? '';
+
+        if ($query === '') {
+            return $path . '/search';
+        }
+
+        return $path . '/search?' . $query;
+    }
+
     public function searchFirst($endpoint, ...$args)
     {
-        return $this->__first("post", $endpoint . "/search", ...$args);
+        return $this->__first("post", $this->buildSearchEndpoint($endpoint), ...$args);
     }
 
     public function searchAll($endpoint, ...$args)
     {
-        return $this->__all("post", $endpoint . "/search", ...$args);
+        return $this->__all("post", $this->buildSearchEndpoint($endpoint), ...$args);
     }
 
     public function search($endpoint, ...$args)
     {
-        return $this->post($endpoint . "/search", ...$args);
+        return $this->post($this->buildSearchEndpoint($endpoint), ...$args);
     }
 
     public function throwErr($response)
